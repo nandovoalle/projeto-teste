@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo Voalle - Plataforma de Gestão Unificada para Provedores de Internet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --voalle-dark: #0a0a0f;
+            --voalle-darker: #050507;
+            --voalle-card: #12121a;
+            --voalle-border: #1e1e2e;
+            --voalle-accent: #6366f1;
+            --voalle-accent-hover: #818cf8;
+            --voalle-text: #ffffff;
+            --voalle-text-muted: #a1a1aa;
+            --voalle-success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Red Hat Display', sans-serif;
+            background-color: var(--voalle-dark);
+            color: var(--voalle-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--voalle-border);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--voalle-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--voalle-accent), #8b5cf6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--voalle-text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--voalle-text);
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--voalle-card);
+            border: 1px solid var(--voalle-border);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--voalle-accent), #8b5cf6);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--voalle-text);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--voalle-border);
+            transition: all 0.3s;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: var(--voalle-card);
+            border-color: var(--voalle-accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--voalle-accent-hover);
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--voalle-text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--voalle-accent-hover);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--voalle-text-muted);
+        }
+
+        /* Jornadas Section */
+        .jornadas {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--voalle-text-muted);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .jornadas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .jornada-card {
+            background: var(--voalle-card);
+            border: 1px solid var(--voalle-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jornada-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--voalle-accent), #8b5cf6);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .jornada-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--voalle-accent);
+        }
+
+        .jornada-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .jornada-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--voalle-accent), #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .jornada-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .jornada-card p {
+            color: var(--voalle-text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .jornada-features {
+            list-style: none;
+        }
+
+        .jornada-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--voalle-text-muted);
+        }
+
+        .jornada-features li::before {
+            content: '✓';
+            color: var(--voalle-success);
+            font-weight: bold;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.05) 50%, transparent 100%);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-box {
+            padding: 2rem;
+        }
+
+        .stat-box-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--voalle-accent), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box-label {
+            color: var(--voalle-text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Brands Section */
+        .brands {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .brands h3 {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--voalle-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        .brands-track {
+            display: flex;
+            gap: 3rem;
+            animation: scroll 30s linear infinite;
+        }
+
+        .brand-item {
+            flex-shrink: 0;
+            width: 150px;
+            height: 60px;
+            background: var(--voalle-card);
+            border: 1px solid var(--voalle-border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--voalle-text-muted);
+            font-weight: 600;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--voalle-card);
+            border: 1px solid var(--voalle-border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--voalle-text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--voalle-accent), #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            font-size: 0.875rem;
+            color: var(--voalle-text-muted);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--voalle-text-muted);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--voalle-card);
+            border: 1px solid var(--voalle-border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--voalle-dark);
+            border: 1px solid var(--voalle-border);
+            border-radius: 8px;
+            color: var(--voalle-text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--voalle-accent);
+        }
+
+        .form-group input::placeholder {
+            color: #52525b;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--voalle-border);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--voalle-text-muted);
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-links h4 {
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--voalle-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--voalle-text);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--voalle-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--voalle-text-muted);
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--voalle-border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--voalle-text-muted);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            border-color: var(--voalle-accent);
+            color: var(--voalle-text);
+            background: var(--voalle-card);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.75rem;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 999;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--voalle-card);
+            border-top: 1px solid var(--voalle-border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            z-index: 998;
+            flex-wrap: wrap;
+        }
+
+        .cookie-banner p {
+            color: var(--voalle-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .cookie-banner a {
+            color: var(--voalle-accent-hover);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--voalle-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .jornadas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon">V</div>
+                Voalle
+            </a>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#jornadas">elleven</a></li>
+                <li><a href="#clientes">Clientes</a></li>
+                <li><a href="#integracoes">Integrações</a></li>
+                <li class="nav-dropdown">
+                    <a href="#">Institucional ▼</a>
+                    <div class="dropdown-menu">
+                        <a href="#">Pessoas & Cultura</a>
+                        <a href="#">História</a>
+                        <a href="#">Imprensa</a>
+                    </div>
+                </li>
+                <li><a href="#contato" class="btn-primary">Contato</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🚀</span>
+                Plataforma de Gestão Unificada
+            </div>
+            <h1>Plataforma de gestão unificada para provedores de internet  123</h1>
+            <p>Simplifique a gestão do seu provedor com uma plataforma completa que integra vendas, entrega, faturamento, cobrança e atendimento em um só lugar.</p>
+            <div class="hero-buttons">
+                <a href="#contato" class="btn-primary">Solicitar Demonstração</a>
+                <a href="#jornadas" class="btn-secondary">Conhecer Soluções</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Clientes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">7.5M</span>
+                    <span class="stat-label">Autenticações/dia</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">40k</span>
+                    <span class="stat-label">Usuários ativos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jornadas Section -->
+    <section class="jornadas" id="jornadas">
+        <div class="section-header">
+            <h2>As 5 Jornadas do Provedor</h2>
+            <p>Uma plataforma completa para gerenciar todas as etapas do seu negócio, do primeiro contato ao suporte pós-venda.</p>
+        </div>
+        <div class="jornadas-grid">
+            <div class="jornada-card">
+                <div class="jornada-icon">📊</div>
+                <h3>Vender</h3>
+                <p>Gerencie seu funil de vendas completo, desde o prospect até o fechamento, com CRM integrado e automações.</p>
+                <ul class="jornada-features">
+                    <li>CRM completo e intuitivo</li>
+                    <li>Funil de vendas customizável</li>
+                    <li>Automação de tarefas</li>
+                    <li>Relatórios de performance</li>
+                </ul>
+            </div>
+            <div class="jornada-card">
+                <div class="jornada-icon">🚚</div>
+                <h3>Entregar</h3>
+                <p>Controle toda a operação de campo com aplicativo móvel para técnicos e gestão de ordens de serviço.</p>
+                <ul class="jornada-features">
+                    <li>App para técnicos</li>
+                    <li>Gestão de OS</li>
+                    <li>Roteirização inteligente</li>
+                    <li>Checklist digital</li>
+                </ul>
+            </div>
+            <div class="jornada-card">
+                <div class="jornada-icon">🧾</div>
+                <h3>Faturar</h3>
+                <p>Sistema de faturamento completo com emissão de notas fiscais, controle de assinaturas e integração bancária.</p>
+                <ul class="jornada-features">
+                    <li>Emissão de NF-e</li>
+                    <li>Carnês e boletos</li>
+                    <li>Controle de planos</li>
+                    <li>Integração bancária</li>
+                </ul>
+            </div>
+            <div class="jornada-card">
+                <div class="jornada-icon">💰</div>
+                <h3>Cobrar</h3>
+                <p>Recupere receitas com ferramentas de cobrança automatizada, negociação de débitos e análise de inadimplência.</p>
+                <ul class="jornada-features">
+                    <li>Cobrança automatizada</li>
+                    <li>Negociação de débitos</li>
+                    <li>Análise de inadimplência</li>
+                    <li>Integração com WhatsApp</li>
+                </ul>
+            </div>
+            <div class="jornada-card">
+                <div class="jornada-icon">🎧</div>
+                <h3>Atender</h3>
+                <p>Centralize o atendimento ao cliente com múltiplos canais, base de conhecimento e painel de controle unificado.</p>
+                <ul class="jornada-features">
+                    <li>Omnichannel</li>
+                    <li>Base de conhecimento</li>
+                    <li>Chatbots inteligentes</li>
+                    <li>Avaliação de atendimento</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-box">
+                <span class="stat-box-number">500+</span>
+                <span class="stat-box-label">Clientes ativos</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-box-number">7.5M</span>
+                <span class="stat-box-label">Autenticações/dia</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-box-number">40k</span>
+                <span class="stat-box-label">Usuários ativos</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-box-number">99.9%</span>
+                <span class="stat-box-label">Uptime</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="brands" id="clientes">
+        <h3>Empresas que confiam na Voalle</h3>
+        <div class="brands-track">
+            <div class="brand-item">Cliente 1</div>
+            <div class="brand-item">Cliente 2</div>
+            <div class="brand-item">Cliente 3</div>
+            <div class="brand-item">Cliente 4</div>
+            <div class="brand-item">Cliente 5</div>
+            <div class="brand-item">Cliente 6</div>
+            <div class="brand-item">Cliente 7</div>
+            <div class="brand-item">Cliente 8</div>
+            <div class="brand-item">Cliente 9</div>
+            <div class="brand-item">Cliente 10</div>
+            <div class="brand-item">Cliente 1</div>
+            <div class="brand-item">Cliente 2</div>
+            <div class="brand-item">Cliente 3</div>
+            <div class="brand-item">Cliente 4</div>
+            <div class="brand-item">Cliente 5</div>
+            <div class="brand-item">Cliente 6</div>
+            <div class="brand-item">Cliente 7</div>
+            <div class="brand-item">Cliente 8</div>
+            <div class="brand-item">Cliente 9</div>
+            <div class="brand-item">Cliente 10</div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-header">
+            <h2>O que nossos clientes dizem</h2>
+            <p>Histórias de sucesso de provedores que transformaram sua gestão com a Voalle.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Atualmente utilizamos somente o RADIUS da Voalle, mas estamos migrando todo o sistema ERP para a plataforma. A facilidade de uso e a integração entre os módulos são diferenciais enormes."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">WM</div>
+                    <div class="author-info">
+                        <h4>William M.</h4>
+                        <p>Diretor de Operações</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"A Voalle mudou completamente nossa forma de trabalhar. Conseguimos reduzir o tempo de atendimento em 40% e aumentar a satisfação dos clientes."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">LR</div>
+                    <div class="author-info">
+                        <h4>Leandro Ratto</h4>
+                        <p>CEO</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Integração perfeita entre todos os setores. Nossa equipe de vendas, técnica e financeiro agora trabalham em sincronia com dados em tempo real."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">KR</div>
+                    <div class="author-info">
+                        <h4>Kayron Rocha</h4>
+                        <p>Gerente Comercial</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contato">
+        <div class="cta-content">
+            <h2>Pronto para transformar seu provedor?</h2>
+            <p>Solicite uma demonstração gratuita e descubra como a Voalle pode ajudar seu negócio a crescer.</p>
+            <form class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email corporativo</label>
+                        <input type="email" id="email" name="email" placeholder="seu@empresa.com" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="empresa">Empresa</label>
+                        <input type="text" id="empresa" name="empresa" placeholder="Nome da empresa" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cargo">Cargo</label>
+                    <select id="cargo" name="cargo" required>
+                        <option value="">Selecione seu cargo</option>
+                        <option value="diretor">Diretor</option>
+                        <option value="gerente">Gerente</option>
+                        <option value="coordenador">Coordenador</option>
+                        <option value="analista">Analista</option>
+                        <option value="tecnico">Técnico</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Solicitar Demonstração</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <div class="logo-icon">V</div>
+                    Voalle
+                </a>
+                <p>Transformando a gestão de provedores de internet através de tecnologia e inovação desde 2008.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Soluções</h4>
+                <ul>
+                    <li><a href="#">elleven ERP</a></li>
+                    <li><a href="#">RADIUS</a></li>
+                    <li><a href="#">CDN/Cache</a></li>
+                    <li><a href="#">SuperWiFi</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Empresa</h4>
+                <ul>
+                    <li><a href="#">Sobre nós</a></li>
+                    <li><a href="#">Carreiras</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Imprensa</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Suporte</h4>
+                <ul>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Documentação</a></li>
+                    <li><a href="#">Status</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Grupo Voalle. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="Instagram">ig</a>
+                <a href="#" aria-label="YouTube">yt</a>
+                <a href="#" aria-label="Facebook">fb</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/555532201350" class="whatsapp-btn" target="_blank" title="Fale conosco no WhatsApp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/>
+        </svg>
+    </a>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner">
+        <p>Este site utiliza cookies para melhorar sua experiência. <a href="#">Saiba mais</a></p>
+        <button class="btn-primary" style="padding: 0.5rem 1rem;">Aceitar</button>
+    </div>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Cookie banner close
+        document.querySelector('.cookie-banner button').addEventListener('click', function() {
+            document.querySelector('.cookie-banner').style.display = 'none';
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Obrigado pelo interesse! Entraremos em contato em breve.');
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(10, 10, 15, 0.98)';
+            } else {
+                header.style.background = 'rgba(10, 10, 15, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
